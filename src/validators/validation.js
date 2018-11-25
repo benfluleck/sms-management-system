@@ -28,7 +28,8 @@ export const checkLengthMap = {
 };
 
 export const checkLengthErrorMessages = {
-  email: 'The email address you provided is invalid',
+  email: 'Please provide a valid email address',
   firstName: 'Firstname is in an invaild format',
   lastName: 'Lastname is in an invaild format',
+  password: 'Please enter a valid password'
 };

@@ -5,17 +5,6 @@ import uuidv4 from 'uuidv4';
 
 
 export const signup = (req, res) => {
-  // const { errors, isValid } = usersValidation.validateSignupInput(req.body);
-
-  // Check validation
-  // if (!isValid) {
-  //   return res.status(400).json({ status: 'error', data: errors });
-  // }
-
-  // let userImage = process.env.USER_DEFAULT_IMAGE;
-  // if (req.file) {
-  //   userImage = req.file.path;
-  // }
 
   const {
     email, password, firstName, lastName
@@ -31,7 +20,7 @@ export const signup = (req, res) => {
         email: 'Email Already Exist',
       };
 
-      res.status(409).json({ status: 'error', data: emailExistResponse });
+      return res.status(409).json({ status: 'error', data: emailExistResponse });
     }
     const data = {
       email,
@@ -43,7 +32,7 @@ export const signup = (req, res) => {
 
     bcrypt.genSalt(10, (err, salt) => {
       if (err) {
-        res.status(400).json({ status: 'error', message: 'Password Error, Please try again' });
+        return res.status(400).json({ status: 'error', message: 'Password Error, Please try again' });
       }
 
       bcrypt.hash(data.password, salt, (error, hash) => {
@@ -51,7 +40,7 @@ export const signup = (req, res) => {
           throw error;
         }
         data.password = hash;
-        const createUser = queries.userInsert;
+        const createUser = queries.createUser;
         const newUser = [
           uuidv4(),
           data.firstName.trim(),
@@ -71,12 +60,51 @@ export const signup = (req, res) => {
             roleType: dbres.rows[ 0 ].type,
           };
 
-          res.status(201).json({ status: 'success', message: 'User Created Successfully', data: response });
+          return res.status(201).json({ status: 'success', message: 'User Created Successfully', data: response });
         });
       });
     });
   }).catch((error) => {
-    res.status(400).json({ status: 'error', message: error.message });
+    return res.status(400).json({ status: 'error', message: error.message });
+  });
+};
+
+export const signin = (req, res) => {
+  const { email, password } = req.body;
+
+  const userExists = queries.userExists;
+  const valuesExist = [
+    email
+  ];
+
+  query(userExists, valuesExist).then((dbResponse) => {
+
+    if (dbResponse.rowCount === 0) {
+      const message = 'User cannot be found';
+
+      return res.status(404).json({ status: 'error', message });
+    }
+
+    const userData = dbResponse.rows[ 0 ];
+
+    bcrypt.compare(password, userData.password)
+      .then((isMatch) => {
+        if (isMatch) {
+
+          res.json({
+            status: 'success', message: `Welcome ${userData.firstname}`,
+            data: {
+              id: userData.id,
+              email: userData.email,
+              firstName: userData.firstname,
+              lastName: userData.lastname,
+            } });
+        } else {
+          res.status(401).json({ status: 'error', message: 'Wrong Credentials' });
+        }
+      });
+  }).catch(() => {
+    return res.status(400).json({ status: 'error', message: 'Error Logging in user, Please try again' });
   });
 };
 

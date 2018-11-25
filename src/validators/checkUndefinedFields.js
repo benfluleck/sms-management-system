@@ -1,8 +1,9 @@
 import { checkLengthMap, checkLengthErrorMessages } from './validation';
 
 const fieldMap = ({
-  // '/auth/signin': [
-  //   'password' ],
+  '/signin': [
+    'email',
+    'password' ],
 
   '/signup': [ 'email',
     'password',

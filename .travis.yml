@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+  - "8"
+
+services:
+  - docker
+
+before_install:
+  - docker build -t benny_ogidan/auth-app .
+  - docker run -d -p 0.0.0.0:8080:8080 benny_ogidan/auth-app /bin/sh -c "cd /usr/src/app; yarn start;"
+  - docker ps -a
+  - docker run benny_ogidan/auth-app /bin/sh -c "cd /usr/src/app; yarn test"
+
+script:
+  - yarn test
+
+after_success:
+  - npm run coverage

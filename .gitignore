@@ -103,6 +103,9 @@ dist
 
 coverage
 .env
+.coveralls.yml
+.nyc_output
+
 
 # package management log
 yarn-error.log

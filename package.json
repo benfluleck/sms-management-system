@@ -7,9 +7,10 @@
     "clean_start:dev": "yarn migrations && babel-watch src/index.js",
     "start:dev": "babel-watch src/index.js",
     "build": "babel src --out-dir dist",
-    "test": "NODE_ENV=test mocha src/tests/index.test.js --require @babel/register",
+    "test": "rm -rf dev.sqlite3 && NODE_ENV=test knex migrate:latest && NODE_ENV=test mocha src/tests/index.test.js --require @babel/register",
     "server": "node dist/index.js",
-    "migrations": "babel-node src/config/migrations.js"
+    "migrations": "knex migrate:latest",
+    "drop-migration": "knex migrate:rollback"
   },
   "dependencies": {
     "@babel/cli": "^7.1.5",
@@ -28,7 +29,10 @@
     "eslint": "^5.9.0",
     "express": "^4.16.4",
     "faker": "^4.1.0",
+    "knex": "^0.15.2",
+    "objection": "^1.4.0",
     "pg": "^7.6.1",
+    "sqlite3": "^4.0.4",
     "uuidv4": "^2.0.0",
     "validator": "^10.9.0"
   },

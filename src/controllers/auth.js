@@ -1,17 +1,17 @@
 import bcrypt from 'bcryptjs';
 import uuidv4 from 'uuidv4';
 
-import User from '../models/user'
+import Users from '../models/users';
 
 
-export const signup = async (req, res) => {
+export const signUp = async (req, res) => {
   try {
     const {
-      email, password, firstName, lastName
+      email, password, firstName, lastName, phoneNumber
     } = req.body;
 
 
-    const userExists = await User.query().findOne({ email })
+    const userExists = await Users.query().findOne({ email })
 
     if (userExists) {
       return res.status(409).json({ status: 'error', message: "This email is already in use" });
@@ -21,6 +21,7 @@ export const signup = async (req, res) => {
       password,
       firstName,
       lastName,
+      phoneNumber,
     };
 
     bcrypt.genSalt(10, async (err, salt) => {
@@ -38,12 +39,13 @@ export const signup = async (req, res) => {
           firstName: data.firstName.trim(),
           lastName: data.lastName.trim(),
           email: data.email.trim(),
+          phoneNumber: data.phoneNumber.trim(),
           password: data.password,
         };
 
-        const createdUser = await User
+        const createdUser = await Users
           .query()
-          .allowInsert('[id, firstName, lastName, email, password]')
+          .allowInsert('[id, firstName, lastName, email, password, phoneNumber]')
           .insert(newUser)
 
         const { password, ...response } = createdUser
@@ -57,11 +59,11 @@ export const signup = async (req, res) => {
   }
 };
 
-export const signin = async (req, res) => {
+export const signIn = async (req, res) => {
   try {
   const { email, password } = req.body;
 
-  const userExists = await User.query().findOne({ email })
+  const userExists = await Users.query().findOne({ email })
   if (!userExists) {
     return res.status(404).json({ status: 'error', message: "This user does not exist" });
   }
@@ -69,17 +71,19 @@ export const signin = async (req, res) => {
   const isMatch = await bcrypt.compare(password, userExists.password)
 
   if (isMatch) {
+    req.session.userId = userExists.id
+
     res.json({
       status: 'success', message: `Welcome ${userExists.firstName}`,
       data: {
         id: userExists.id
-      }
+     }
     });
   } else {
     return res.status(401).json({ status: 'error', message: 'Wrong Credentials' });
   }
   } catch {
-    res.status(400).json({ status: 'error', message: error.message })
+    res.status(400).json({ status: 'error', message: error.message });
   }
 };
 

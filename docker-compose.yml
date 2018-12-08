@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  web:
+    container_name: docker-lms-phone-contact-sms
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - SESSION_NAME=${SESSION_NAME}
+      - SESSION_SECRET=${SESSION_SECRET}
+
+

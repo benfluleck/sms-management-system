@@ -9,6 +9,7 @@ pg.defaults.ssl = true;
 
 const environment = process.env.NODE_ENV || 'development';
 
+console.log('The environment is ', environment)
 
 const migrations = {
   tableName: 'migrations',
@@ -20,8 +21,8 @@ const getConfigEnvironment = () => ({
     client: process.env.DEVELOPMENT_CLIENT,
     connection: process.env.DEVELOPMENT_DB_URL,
     pool: {
-      min: process.env.MIN_POOL_SIZE,
-      max: process.env.MAX_POOL_SIZE
+      min: 2,
+      max: 10
     },
     migrations: {...migrations}
   },

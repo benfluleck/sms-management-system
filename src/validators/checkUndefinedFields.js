@@ -5,10 +5,17 @@ const fieldMap = ({
     'email',
     'password' ],
 
-  '/signup': [ 'email',
+  '/signup': [
+    'email',
     'password',
     'firstName',
-    'lastName' ],
+    'lastName',
+    'phoneNumber'
+  ],
+  '/': [
+    'firstName',
+    'phoneNumber',
+  ],
 });
 
 /**
@@ -24,6 +31,7 @@ const fieldMap = ({
 export default (req, res, next) => {
 
   const { path } = req;
+
   const allFields = fieldMap[ path ]
     .find((field) => {
       if (req.body[ field ]) {

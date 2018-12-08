@@ -1,7 +1,9 @@
 import { invalidFieldMap, inValidFieldErrorMessages } from './validation';
 
 const fieldMap = {
-  '/signup': [ 'email' ]
+  '/signup': [ 'email', 'phoneNumber' ],
+  '/': [
+    'phoneNumber' ],
 };
 
 /**

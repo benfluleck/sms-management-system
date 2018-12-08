@@ -4,7 +4,7 @@
   "main": "./src/index.js",
   "license": "MIT",
   "scripts": {
-    "clean_start:dev": "yarn migrations && babel-watch src/index.js",
+    "clean_start:dev": "yarn drop-migration && yarn migrations && babel-watch src/index.js",
     "start:dev": "babel-watch src/index.js",
     "build": "babel src --out-dir dist",
     "pretest": "rm -rf dev.sqlite3 && NODE_ENV=test knex migrate:latest",
@@ -13,6 +13,11 @@
     "server": "node dist/index.js",
     "migrations": "knex migrate:latest",
     "drop-migration": "knex migrate:rollback"
+  },
+  "nyc": {
+    "exclude": [
+      "src/index.js"
+    ]
   },
   "dependencies": {
     "@babel/cli": "^7.1.5",
@@ -26,10 +31,12 @@
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
+    "connect-redis": "^3.4.0",
     "coveralls": "^3.0.2",
     "dotenv": "^6.1.0",
     "eslint": "^5.9.0",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "faker": "^4.1.0",
     "knex": "^0.15.2",
     "nyc": "^13.1.0",

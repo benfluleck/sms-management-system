@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { signup, signin } from '../controllers/auth';
+import { signUp, signIn } from '../controllers/auth';
 import checkUndefinedFields from '../validators/checkUndefinedFields';
 import checkInvalidFields from '../validators/checkInvalidFields';
 
 export const authRouter = Router();
 
-authRouter.post('/signin', checkUndefinedFields, signin );
+authRouter.post('/signin', checkUndefinedFields, signIn );
 
-authRouter.post('/signup', checkUndefinedFields, checkInvalidFields, signup);
+authRouter.post('/signup', checkUndefinedFields, checkInvalidFields, signUp);

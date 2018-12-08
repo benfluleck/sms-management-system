@@ -10,6 +10,7 @@ const userDetails = {
   password: 'boooboo',
   firstName: 'Benny',
   lastName: 'Ogidan',
+  phoneNumber: '0980544544',
   email: 'benny.ogidan@hotmail.com',
 }
 
@@ -74,6 +75,7 @@ describe('Authentication', () => {
           .name
           .lastName(),
         password: 'password',
+        phoneNumber: '06790334545',
         email
       })
       .then((res) => {
@@ -193,6 +195,7 @@ describe('Authentication', () => {
         lastName: 'Nyotu',
         email: 'benny.ogidan@hotmail.com',
         password: 'benny',
+        phoneNumber: '08103345567'
       })
       .then((res) => {
         expect(res.status)

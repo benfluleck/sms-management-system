@@ -3,16 +3,9 @@ import chaiHttp from 'chai-http';
 import faker from 'faker';
 
 import app from '../index';
+import { userDetails } from './fixtures/userData';
 
 chai.use(chaiHttp);
-
-const userDetails = {
-  password: 'boooboo',
-  firstName: 'Benny',
-  lastName: 'Ogidan',
-  phoneNumber: '0980544544',
-  email: 'benny.ogidan@hotmail.com',
-}
 
 describe('Authentication', () => {
   it(
@@ -71,9 +64,7 @@ describe('Authentication', () => {
         firstName: faker
           .name
           .firstName(),
-        lastName: faker
-          .name
-          .lastName(),
+        lastName: 'Martins',
         password: 'password',
         phoneNumber: '06790334545',
         email

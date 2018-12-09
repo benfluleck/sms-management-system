@@ -27,6 +27,13 @@ export const sendMessage = async (req, res, next) => {
       return res.status(404).json({ status: 'error', message: "This Contact Id does not exist" });
     }
 
+    const recipientExists = await Contacts.query().findById(recipientId)
+
+    if (!recipientExists) {
+      return res.status(404).json({ status: 'error', message: "This Recipient Id does not exist" });
+    }
+
+
     const newMessage = {
       id: uuidv4(),
       messageContents,
@@ -84,7 +91,7 @@ export const getContactsMessages = async (req, res, next) => {
         break;
     }
 
-    res.status(200).json({ status: 'success', data: allMessages });
+    res.status(200).json({ status: 'success', message: "Messages Succesfully Retrieved", data: allMessages });
 
   }
   catch (error) {
@@ -122,7 +129,7 @@ export const getAllMessages = async (req, res, next) => {
     const allMessages = await Messages
       .query()
 
-    res.status(200).json({ status: 'success', data: allMessages });
+    res.status(200).json({ status: 'success', message: "Messages Succesfully Retrieved", data: allMessages });
   }
   catch (error) {
     res.status(400).json({ status: 'error', message: error.message })

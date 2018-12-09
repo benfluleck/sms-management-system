@@ -43,7 +43,7 @@ export const getAllContacts = async (req, res, next) => {
     const allContacts = await Contacts
       .query()
 
-    res.status(200).json({ status: 'success', data: allContacts });
+    res.status(200).json({ status: 'success', message: 'Contact list generated Successfully', data: allContacts });
   }
   catch (error) {
     res.status(400).json({ status: 'error', message: error.message })

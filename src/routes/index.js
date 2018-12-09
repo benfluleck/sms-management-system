@@ -10,7 +10,7 @@ export const indexRouter = Router();
 
 indexRouter.route('/')
   .get(
-    (req, res) => res.json(200, 'Welcome to the endpoints')
+    (req, res) => res.status(200).send({ message: 'Welcome to the SMS Management endpoints' })
   );
 
 indexRouter.use('/auth', authRouter);

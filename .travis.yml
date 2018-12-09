@@ -4,10 +4,11 @@ node_js:
   - "8"
 
 services:
-  - docker
+  - sqlite3
+  - redis-server
 
 script:
-  - docker-compose up
+  - yarn test
 
 after_success:
   - yarn coverage

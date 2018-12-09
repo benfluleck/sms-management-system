@@ -13,7 +13,7 @@ const agent = chai.request.agent(app);
 describe('Contacts', () => {
   describe('<POST> Add Contact', () => {
 
-    it('should return a 201 status code when a regular user is created', (done) => {
+    it('should return a 201 status code when a new contact is added', (done) => {
       loginUser(agent)
         .then(() => {
           agent
@@ -60,7 +60,7 @@ describe('Contacts', () => {
             });
         });
     });
-    it('should return a 404 status code when a number already in the database is supplied', (done) => {
+    it('should return a 409 status code when a number already in the database is supplied', (done) => {
       loginUser(agent)
         .then(() => {
           agent
@@ -153,7 +153,7 @@ describe('Contacts', () => {
             });
         });
     });
-    it('should return a 403 error for an invalid id', (done) => {
+    it('should return a 403 status error for an invalid id', (done) => {
       loginUser(agent)
         .then(() => {
           const id = 'ererer-121212-4454545-55656';
@@ -180,7 +180,7 @@ describe('Contacts', () => {
         });
 
     });
-    it('should return a 404 error for an valid id that doesn\'t exist in the database', (done) => {
+    it('should return a 404 status error for an valid id that doesn\'t exist in the database', (done) => {
       loginUser(agent)
         .then(() => {
           const id = '47309137-2d37-47bf-ac17-5fad0123a1a3';
@@ -238,7 +238,7 @@ describe('Contacts', () => {
             });
         });
     });
-    it('should return a 404 error when trying to deleted an already deleted contact', (done) => {
+    it('should return a 404 status error when trying to deleted an already deleted contact', (done) => {
       loginUser(agent);
       agent
         .del(`/api/v1/contacts/${deletedId}`)

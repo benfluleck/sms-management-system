@@ -10,7 +10,6 @@ export const signUp = async (req, res) => {
       email, password, firstName, lastName, phoneNumber
     } = req.body;
 
-
     const userExists = await Users.query().findOne({ email })
 
     if (userExists) {
@@ -71,7 +70,7 @@ export const signIn = async (req, res) => {
   const isMatch = await bcrypt.compare(password, userExists.password)
 
   if (isMatch) {
-    req.session.userId = userExists.id
+    req.session && (req.session.userId = userExists.id)
 
     res.json({
       status: 'success', message: `Welcome ${userExists.firstName}`,
@@ -82,7 +81,7 @@ export const signIn = async (req, res) => {
   } else {
     return res.status(401).json({ status: 'error', message: 'Wrong Credentials' });
   }
-  } catch {
+  } catch (error) {
     res.status(400).json({ status: 'error', message: error.message });
   }
 };

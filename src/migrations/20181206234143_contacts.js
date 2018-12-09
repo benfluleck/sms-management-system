@@ -19,12 +19,13 @@ exports.up = function(knex, Promise) {
       table.string('phoneNumber').unique();
       table.timestamps(true, true);
     }),
-    knex.schema.createTable('sms', (table) => {
+    knex.schema.createTable('messages', (table) => {
       table.uuid('id').primary();
       table.string('messageContents');
-      table.integer('status');
-      table.string('recipientId');
-      table.string('senderId');
+      table.integer('status').defaultTo(0);
+      table.uuid('recipientId').notNullable().references('id').inTable('contacts').onDelete('CASCADE');
+      table.uuid('senderId').notNullable().references('id').inTable('contacts').onDelete('CASCADE');;
+      table.timestamps(true, true);
     }),
   ]);
 };
@@ -33,6 +34,6 @@ exports.down = function(knex, Promise) {
   return Promise.all([
     knex.schema.dropTable('users'),
     knex.schema.dropTable('contacts'),
-    knex.schema.dropTable('sms')
+    knex.schema.dropTable('messages')
   ]);
 };

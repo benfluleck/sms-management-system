@@ -1,6 +1,6 @@
 import { checkLengthMap, checkLengthErrorMessages } from './validation';
 
-const fieldMap = ({
+const fieldMap = (contactId) => ({
   '/signin': [
     'email',
     'password' ],
@@ -16,6 +16,9 @@ const fieldMap = ({
     'firstName',
     'phoneNumber',
   ],
+
+  [ `/${contactId}` ]: [ 'firstName', 'phoneNumber' ],
+  [ `/${contactId}/messages` ]: [ 'messageContents' ]
 });
 
 /**
@@ -31,12 +34,13 @@ const fieldMap = ({
 export default (req, res, next) => {
 
   const { path } = req;
+  const { contactId } = req.params;
 
-  const allFields = fieldMap[ path ]
+  const allFields = fieldMap(contactId)[ path ]
     .find((field) => {
       if (req.body[ field ]) {
         const validationFn = checkLengthMap[ field ];
-
+      
         return !validationFn.every((fn) => fn(req.body[ field ]));
       }
       return true;

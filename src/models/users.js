@@ -20,7 +20,8 @@ class Users extends Model {
   }
 
   $beforeUpdate() {
-    this.updatedAt = new Date().toISOString();
+    // eslint-disable-next-line camelcase
+    this.updated_at = knexConnection.fn.now();
   }
 
 }

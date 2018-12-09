@@ -6,6 +6,7 @@ const fieldLength = {
   firstName: { max: 30, min: 2 },
   phoneNumber: { max: 15, min: 9 },
   email: { max: 50, min: 5 },
+  messageContents: { min: 5, max: 550 },
 };
 
 const emailRegex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"|"_+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -29,6 +30,7 @@ export const inValidFieldErrorMessages = {
 
 export const checkLengthMap = {
   email: [ modifiedIsLength('email') ],
+  messageContents: [ modifiedIsLength('messageContents') ],
   password: [ modifiedIsLength('password') ],
   phoneNumber: [ modifiedIsLength('phoneNumber'), isMobilePhone ],
   firstName: [ modifiedIsLength('firstName'), isAlpha ],
@@ -40,5 +42,6 @@ export const checkLengthErrorMessages = {
   firstName: 'firstName field is in an invaild format',
   lastName: 'lastName field is in an invaild format',
   password: 'Please enter a valid password',
-  phoneNumber: 'The phone number entered is invalid'
+  phoneNumber: 'The phone number entered is invalid',
+  messageContents: 'Message should be between 5 and 300 characters'
 };

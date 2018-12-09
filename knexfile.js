@@ -21,8 +21,8 @@ const getConfigEnvironment = () => ({
     client: process.env.DEVELOPMENT_CLIENT,
     connection: process.env.DEVELOPMENT_DB_URL,
     pool: {
-      min: 2,
-      max: 10
+      min: Number(process.env.MIN_POOL_SIZE),
+      max: Number(process.env.MAX_POOL_SIZE)
     },
     migrations: {...migrations}
   },
@@ -33,6 +33,15 @@ const getConfigEnvironment = () => ({
     },
     useNullAsDefault: true,
     migrations: {...migrations}
+  },
+  'production': {
+    client: process.env.PROD_CLIENT,
+    connection: process.env.PROD_DB_URL,
+    pool: {
+      min: Number(process.env.MIN_POOL_SIZE),
+      max: Number(process.env.MAX_POOL_SIZE)
+    },
+    migrations: { ...migrations }
   }
 
 })[ environment ];

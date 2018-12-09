@@ -6,13 +6,15 @@
   "scripts": {
     "clean_start:dev": "yarn drop-migration && yarn migrations && babel-watch src/index.js",
     "start:dev": "babel-watch src/index.js",
+    "start:prod": "node dist/app.js",
     "build": "babel src --out-dir dist",
     "pretest": "rm -rf dev.sqlite3 && NODE_ENV=test knex migrate:latest",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha src/tests/index.test.js --require @babel/register --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "server": "node dist/index.js",
     "migrations": "knex migrate:latest",
-    "drop-migration": "knex migrate:rollback"
+    "drop-migration": "knex migrate:rollback",
+    "heroku-postbuild": "yarn build && NODE_ENV=production knex migrate:rollback && NODE_ENV=production knex migrate:latest"
   },
   "nyc": {
     "exclude": [

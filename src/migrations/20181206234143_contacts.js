@@ -33,7 +33,7 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return Promise.all([
     knex.schema.dropTable('users'),
-    knex.schema.dropTable('contacts'),
+    knex.raw('DROP TABLE contacts CASCADE'),
     knex.schema.dropTable('messages')
   ]);
 };

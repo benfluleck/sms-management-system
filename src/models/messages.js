@@ -1,9 +1,9 @@
 import Model from './config';
 import Contacts from './contacts';
 
-class Sms extends Model {
+class Messages extends Model {
   static get tableName() {
-    return 'sms';
+    return 'messages';
   }
 
   static get relationMappings() {
@@ -12,7 +12,7 @@ class Sms extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Contacts,
         join: {
-          from: 'sms.senderId',
+          from: 'messages.senderId',
           to: 'contacts.id'
         }
       },
@@ -20,7 +20,7 @@ class Sms extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Contacts,
         join: {
-          from: 'sms.recipientId',
+          from: 'messages.recipientId',
           to: 'contacts.id',
         }
       },
@@ -28,10 +28,11 @@ class Sms extends Model {
   }
 
   $beforeUpdate() {
-    this.updatedAt = new Date().toISOString();
+    // eslint-disable-next-line camelcase
+    this.updated_at = knexConnection.fn.now();
   }
 
 }
 
 
-export default Sms;
+export default Messages;

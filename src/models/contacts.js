@@ -1,5 +1,5 @@
-import Model from './config';
-import Sms from './sms';
+import Model, { knexConnection } from './config';
+import Messages from './messages';
 import Users from './users';
 
 class Contacts extends Model {
@@ -19,25 +19,26 @@ class Contacts extends Model {
       },
       senders: {
         relation: Model.HasManyRelation,
-        modelClass: Sms,
+        modelClass: Messages,
         join: {
           from: 'contacts.id',
-          to: 'sms.senderId'
+          to: 'messages.senderId'
         }
       },
       recipients: {
         relation: Model.HasManyRelation,
-        modelClass: Sms,
+        modelClass: Messages,
         join: {
           from: 'contacts.id',
-          to: 'sms.recipientId',
+          to: 'messages.recipientId',
         }
       }
     };
   }
 
   $beforeUpdate() {
-    this.updatedAt = new Date().toISOString();
+    // eslint-disable-next-line camelcase
+    this.updated_at = knexConnection.fn.now();
   }
 
 }

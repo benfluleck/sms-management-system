@@ -1,10 +1,11 @@
 import { invalidFieldMap, inValidFieldErrorMessages } from './validation';
 
-const fieldMap = {
+const fieldMap = () => ({
   '/signup': [ 'email', 'phoneNumber' ],
   '/': [
     'phoneNumber' ],
-};
+
+});
 
 /**
  * @description middleware for field format validations
@@ -18,8 +19,10 @@ const fieldMap = {
  * @returns {bool} validation error
  */
 export default (req, res, next) => {
-  const path = req.path;
-  const invalidField = fieldMap[ path ]
+
+  const { path } = req;
+  const { contactId } = req.params;
+  const invalidField = fieldMap(contactId)[ path ]
     .find((field) => {
       if (req.body[ field ]) {
         const validationFn = invalidFieldMap[ field ];

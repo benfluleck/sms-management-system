@@ -28,12 +28,17 @@ app.use(session({
   }
 }));
 
-
 app.use('/api/v1', indexRouter);
 
+app.get('/', (req, res, next) => {
+  res.send(`<h1>Welcome To The SMS Management Application</h1>
+            <h4>Please use PostMan and navigate to <code>/api/v1</code> to use the app</h4>
+            <p>For any more info please visit <a href='https://github.com/benfluleck/sms-management-system'>my Github page</a></P>
+            <h4>Thanks  &#x1F600;</h4>`);
 
+});
 app.use((req, res, next) => {
-  const error = new Error('Not Found');
+  const error = new Error('Route Not Found');
 
   error.status = 404;
   next(error);
@@ -48,5 +53,6 @@ app.use((error, req, res, next) => {
   });
   next();
 });
+
 
 export default app;

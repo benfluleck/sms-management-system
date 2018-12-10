@@ -13,9 +13,11 @@ const RedisStore = connectRedis(session);
 
 setGlobalMiddleware(app);
 
+isProduction && app.set('trust proxy', 1);
+
 app.use(session({
   store: new RedisStore({
-
+    url: isProduction && process.env.REDISTOGO_URL
   }),
   name: process.env.SESSION_NAME,
   secret: process.env.SESSION_SECRET,
@@ -25,6 +27,7 @@ app.use(session({
     secure: isProduction,
     maxAge: SESSION_LIFETIME,
     sameSite: true,
+
   }
 }));
 

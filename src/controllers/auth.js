@@ -60,27 +60,27 @@ export const signUp = async (req, res) => {
 
 export const signIn = async (req, res) => {
   try {
-  const { email, password } = req.body;
+    const { email, password } = req.body;
 
-  const userExists = await Users.query().findOne({ email })
-  if (!userExists) {
-    return res.status(404).json({ status: 'error', message: "This user does not exist" });
-  }
+    const userExists = await Users.query().findOne({ email })
+    if (!userExists) {
+      return res.status(404).json({ status: 'error', message: "This user does not exist" });
+    }
 
-  const isMatch = await bcrypt.compare(password, userExists.password)
+    const isMatch = await bcrypt.compare(password, userExists.password)
 
-  if (isMatch) {
-    req.session && (req.session.userId = userExists.id)
+    if (isMatch) {
+      req.session && (req.session.userId = userExists.id)
 
-    res.json({
-      status: 'success', message: `Welcome ${userExists.firstName}`,
-      data: {
-        id: userExists.id
-     }
-    });
-  } else {
-    return res.status(401).json({ status: 'error', message: 'Wrong Credentials' });
-  }
+      res.json({
+        status: 'success', message: `Welcome ${userExists.firstName}`,
+        data: {
+          id: userExists.id
+        }
+      });
+    } else {
+      return res.status(401).json({ status: 'error', message: 'Wrong Credentials' });
+    }
   } catch (error) {
     res.status(400).json({ status: 'error', message: error.message });
   }

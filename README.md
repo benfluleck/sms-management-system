@@ -74,7 +74,7 @@ PUT          | /api/v1/contacts                           | Registered users can
 DELETE       | /api/v1/contacts                           | Registered users can delete a contact and messages associated with it
 POST         | /api/v1/contacts/:contactId/messages       | Registered users can help contacts send messages
 GET          | /api/v1/contacts/:contactId/messages       | Registered users can return all messages sent and recieved by a contact
-GET          | /api/v1/contacts/:contactId/messages?status=`('sent' || 'recieved')`      | Registered users can return all messages sent by the contact or all messages received by the contact
+GET          | /api/v1/contacts/:contactId/messages?status='sent'||'recieved'      | Registered users can return all messages sent by the contact or all messages received by the contact
 GET          | /api/v1/messages                           | Registerd users can get all messages regardless of the contacts
 DELETE       | /api/v1/messages/:messageId                           | Registered user can delete a message
 

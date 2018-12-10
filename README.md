@@ -62,21 +62,7 @@ Server side testing is achieved through use of `chai-http`, `mocha` and `chai` p
 
 ## API Endpoints
 
-Api endpoints were created using `express` router. The routes are defined under `src/routes/index.js`.
-
-Request type | Endpoint                                   | Action
--------------|--------------------------------------------|--------------------------------------------------
-POST         | /api/v1/auth/signup                      | Sign-up a new user
-POST	     | /api/v1/auth/signin                     | Sign-in a registered user
-POST         | /api/v1/contacts	                          | Registered users can add a new contact
-GET          | /api/v1/contacts                           | Registered users can returns a list of contacts
-PUT          | /api/v1/contacts                           | Registered users can update/ modify a contact
-DELETE       | /api/v1/contacts                           | Registered users can delete a contact and messages associated with it
-POST         | /api/v1/contacts/:contactId/messages       | Registered users can help contacts send messages
-GET          | /api/v1/contacts/:contactId/messages       | Registered users can return all messages sent and recieved by a contact
-GET          | /api/v1/contacts/:contactId/messages?status='sent'or'recieved'      | Registered users can return all messages sent by the contact or all messages received by the contact
-GET          | /api/v1/messages                           | Registerd users can get all messages regardless of the contacts
-DELETE       | /api/v1/messages/:messageId                           | Registered user can delete a message
+Please view API Documentation [here](https://bennyogidan.docs.apiary.io/#)
 
 
 ## Questions

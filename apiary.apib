@@ -1,0 +1,346 @@
+FORMAT: 1A
+HOST: https://staging-sms-application.herokuapp.com
+
+# SMS Management Application
+
+The SMS management application is a project inspired by my LMS Outputs for [Andela](https://andela.com/) 
+for my D2 Assessments. The aim is a back-end javascript application that implements a simple way to send and receive SMS messages between contacts on the application
+
+
+
+## Authentication Sign Up [/api/v1/auth/signup]
+
+
+
+### Sign Up [POST]
+Sign Up to the Application takes a JSON object containing user credentials
+
++ Request (application/json)
+
+        {
+            "firstName": "Sam",
+            "lastName": "Olatunji",
+            "email": "sam.ogidan@andela.com",
+            "password": "abcd12345",
+            "phoneNumber": "080556343986",
+            
+                
+        }
+
++ Response 201 (application/json)
+
+        {
+            "status": "success",
+            "message": "User Created Successfully",
+            "data": {
+                "id": "184ecdad-42bd-4429-ba56-86c5aa62e096",
+                "firstName": "Sam",
+                "lastName": "Ogidan",
+                "email": "sam.ogidan@andela.com",
+                "phoneNumber": "08033323987"
+            }
+        }
+
+## Authentication Sign In [/api/v1/auth/signin]
+
+### Sign In [POST]
+Sign In to the Application takes a JSON object containing user credentials
+
++ Request (application/json)
+
+            {
+               "email": "sam.ogidan@andela.com",
+               "password": "abcd12345",
+            }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Cookie: sid
+
+    + Body
+
+            {
+                "status": "success",
+                "message": "Welcome Sam",
+                "data": {
+                    "id": "34ec2fa8-5c6b-41fa-97c0-00e98f1fd872"
+                }
+            }
+        
+## Contacts [/api/v1/contacts]
+
+### Add Contact [POST]
+Add a Contact that takes a JSON object containg a new contact details
+
++ Request (application/json)
+
+        {
+           "email": "sam.ogidan@andela.com",
+           "firstName": "Ben",
+           "phoneNumber": "08033245678",
+           "lastName": "Kinbo",
+          
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Cookie: sid
+
+    + Body
+
+            {
+                "status": "success",
+                "message": "Contact Created Successfully",
+                "data": {
+                    "id": "ad9ce965-4349-4168-accc-a5dc1954c7aa",
+                    "firstName": "Ben",
+                    "lastName": "Kinbo",
+                    "email": "sam.ogidan@andela.com",
+                    "phoneNumber": "08033245678",
+                    "ownerId": "34ec2fa8-5c6b-41fa-97c0-00e98f1fd872"
+                }
+            }
+
+### Get Contacts [GET]
+Returns a list of Contacts in the application
+
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Cookie: sid
+
+    + Body
+
+            {
+                "status": "success",
+                "message": "Contact list generated Successfully",
+                "data": [
+                    {
+                        "id": "ad9ce965-4349-4168-accc-a5dc1954c7aa",
+                        "ownerId": "34ec2fa8-5c6b-41fa-97c0-00e98f1fd872",
+                        "firstName": "Ben",
+                        "email": "sam.ogidan@andela.com",
+                        "lastName": "Kinbo",
+                        "phoneNumber": "08033245678",
+                        "created_at": "2018-12-10T14:50:00.773Z",
+                        "updated_at": "2018-12-10T14:50:00.773Z"
+                    },
+                    {
+                        "id": "4efe97bc-5105-4e39-9975-db489ee56ef3",
+                        "ownerId": "34ec2fa8-5c6b-41fa-97c0-00e98f1fd872",
+                        "firstName": "Dino",
+                        "email": "sam.ogidan@andela.com",
+                        "lastName": "Kinbo",
+                        "phoneNumber": "080445423443",
+                        "created_at": "2018-12-10T14:51:47.411Z",
+                        "updated_at": "2018-12-10T14:51:47.411Z"
+                    },
+                    {
+                        "id": "4618dfb5-61a8-4c24-ae64-e016a07a4d66",
+                        "ownerId": "34ec2fa8-5c6b-41fa-97c0-00e98f1fd872",
+                        "firstName": "Bummer",
+                        "email": null,
+                        "lastName": "Kinbo",
+                        "phoneNumber": "080445423442",
+                        "created_at": "2018-12-10T14:52:05.661Z",
+                        "updated_at": "2018-12-10T14:52:05.661Z"
+                    }
+                ]
+            }
+
+## Contacts Id [/api/v1/contacts/{contactId}]
+
+    + Parameters
+    + contactId - A vaild contact id
+
+### Update Contact [PUT]
+Edit Contact that takes a JSON object containg a new contact details
+
++ Request (application/json)
+
+        {
+           "email": "sam.ogidan@andela.com",
+           "firstName": "Tope",
+           "phoneNumber": "080445423442",
+           "lastName": "Kinbo",
+          
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Cookie: sid
+
+    + Body
+
+            {
+                "status": "success",
+                "message": "Contact Successfully Updated",
+                "data": {
+                    "firstName": "Tope",
+                    "lastName": "Kinbo",
+                    "email": "sam.ogidan@andela.com",
+                    "phoneNumber": "08044542345",
+                    "updated_at": "2018-12-10T15:03:00.751Z",
+                    "id": "ad9ce965-4349-4168-accc-a5dc1954c7aa",
+                    "ownerId": "34ec2fa8-5c6b-41fa-97c0-00e98f1fd872",
+                    "created_at": "2018-12-10T14:50:00.773Z"
+                }
+            }
+        
+### Delete Contact [DELETE]
+Delete Contact that takes a parameter of contact id
+
+
++ Response 202 (application/json)
+
+    + Headers
+
+            Cookie: sid
+
+    + Body
+
+            {
+                "status": "success",
+                "message": "Contact Successfully Deleted"
+            }
+
+## Contact Messages [/api/v1/{contactId}/messages{?sent,received}]
+    + Parameters
+    + contactId - A vaild contact id
+    + sent (optional) - Returns sent messages
+    + received (optional) - Returns recieved messages
+
+### Send Contact Messages [POST]
+Registered users can help contacts send messages it takes a parameter contact Id and takes a JSON object for the message Contents and recipientId
+
++ Request (application/json)
+
+        {
+           "recipientId": "4618dfb5-61a8-4c24-ae64-e016a07a4d66",
+           "messageContents": "This is a new text Message",
+          
+        }
+        
++ Response 201 (application/json)
+
+    + Headers
+
+            Cookie: sid
+
+    + Body
+
+            {
+                "status": "success",
+                "message": "Message Sent Successfully",
+                "data": {
+                    "id": "d8e5202d-84e9-48a3-8c60-54e7f5db92ae",
+                    "messageContents": "This is a new text Message",
+                    "recipientId": "4618dfb5-61a8-4c24-ae64-e016a07a4d66",
+                    "senderId": "4efe97bc-5105-4e39-9975-db489ee56ef3",
+                    "status": 1
+                }
+            }
+
+### Get All Contact Messages [GET]
+Registered Users can help contacts show all messages attributed to the contact, sent or received
+
+        
++ Response 200 (application/json)
+
+
+    + Headers
+
+            Cookie: sid
+
+    + Body
+
+            {
+                "status": "success",
+                "message": "Messages Succesfully Retrieved",
+                "data": [
+                    {
+                        "id": "d8e5202d-84e9-48a3-8c60-54e7f5db92ae",
+                        "messageContents": "This is a new text Message",
+                        "status": 1,
+                        "recipientId": "4618dfb5-61a8-4c24-ae64-e016a07a4d66",
+                        "senderId": "4efe97bc-5105-4e39-9975-db489ee56ef3",
+                        "created_at": "2018-12-10T15:26:30.255Z",
+                        "updated_at": "2018-12-10T15:26:30.255Z"
+                    },
+                    {
+                        "id": "027e670d-11d7-425a-be0a-7cc435d3a9da",
+                        "messageContents": "This is a new text Message",
+                        "status": 1,
+                        "recipientId": "4618dfb5-61a8-4c24-ae64-e016a07a4d66",
+                        "senderId": "4efe97bc-5105-4e39-9975-db489ee56ef3",
+                        "created_at": "2018-12-10T15:29:59.239Z",
+                        "updated_at": "2018-12-10T15:29:59.239Z"
+                    }
+                ]
+            }
+
+## Messages [/api/v1/messages]
+
+### Get All  Messages [GET]
+Registered Users retrieves all contact messages
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Cookie: sid
+
+    + Body
+
+            {
+                "status": "success",
+                "message": "Messages Succesfully Retrieved",
+                "data": [
+                    {
+                        "id": "d8e5202d-84e9-48a3-8c60-54e7f5db92ae",
+                        "messageContents": "This is a new text Message",
+                        "status": 1,
+                        "recipientId": "4618dfb5-61a8-4c24-ae64-e016a07a4d66",
+                        "senderId": "4efe97bc-5105-4e39-9975-db489ee56ef3",
+                        "created_at": "2018-12-10T15:26:30.255Z",
+                        "updated_at": "2018-12-10T15:26:30.255Z"
+                    },
+                    {
+                        "id": "027e670d-11d7-425a-be0a-7cc435d3a9da",
+                        "messageContents": "This is a new text Message",
+                        "status": 1,
+                        "recipientId": "4618dfb5-61a8-4c24-ae64-e016a07a4d66",
+                        "senderId": "4efe97bc-5105-4e39-9975-db489ee56ef3",
+                        "created_at": "2018-12-10T15:29:59.239Z",
+                        "updated_at": "2018-12-10T15:29:59.239Z"
+                    }
+                ]
+            }
+
+## Message Id [/api/v1/messages/{messageId}]
+    + Parameters
+    + messageId - A vaild message id
+
+### Delete Message [DELETE]
+Registered Users can delete specified messages for contacts
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Cookie: sid
+
+    + Body
+
+            {
+                "status": "success",
+                "message": "Message Successfully Deleted"
+            }

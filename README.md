@@ -70,6 +70,6 @@ For more details contact benny.ogidan@andela.com
 
 ## Support or Contribution
 For any suggestions or contributions or issues please do raise them or email me.
-For **Contributiions**, Please clone the repo and implement a PR I would appreciate it
+For **Contributions**, Please clone the repo and implement a PR I would appreciate it
 
 

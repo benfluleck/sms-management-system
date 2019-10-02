@@ -14,7 +14,9 @@
     "server": "node dist/index.js",
     "migrations": "knex migrate:latest",
     "drop-migration": "knex migrate:rollback",
-    "heroku-postbuild": "yarn build && NODE_ENV=production knex migrate:rollback && NODE_ENV=production knex migrate:latest"
+    "heroku-postbuild": "yarn build && NODE_ENV=production knex migrate:rollback && NODE_ENV=production knex migrate:latest",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "nyc": {
     "exclude": [
@@ -41,15 +43,17 @@
     "express-session": "^1.15.6",
     "faker": "^4.1.0",
     "knex": "^0.15.2",
-    "nyc": "^13.1.0",
+    "nyc": "^13.2.0",
     "objection": "^1.4.0",
     "pg": "^7.6.1",
     "sqlite3": "^4.0.4",
     "uuidv4": "^2.0.0",
-    "validator": "^10.9.0"
+    "validator": "^10.9.0",
+    "snyk": "^1.230.4"
   },
   "devDependencies": {
     "babel-watch": "https://github.com/monathur/babel-watch.git",
     "mocha": "^5.2.0"
-  }
+  },
+  "snyk": true
 }

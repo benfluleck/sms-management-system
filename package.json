@@ -16,7 +16,7 @@
     "drop-migration": "knex migrate:rollback",
     "heroku-postbuild": "yarn build && NODE_ENV=production knex migrate:rollback && NODE_ENV=production knex migrate:latest",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "yarn run snyk-protect"
   },
   "nyc": {
     "exclude": [

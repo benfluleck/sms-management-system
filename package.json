@@ -48,7 +48,7 @@
     "pg": "^7.6.1",
     "sqlite3": "^4.0.4",
     "uuidv4": "^2.0.0",
-    "validator": "^10.9.0",
+    "validator": "^13.7.0",
     "snyk": "^1.278.2"
   },
   "devDependencies": {

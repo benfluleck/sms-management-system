@@ -45,11 +45,11 @@
     "knex": "^0.20.1",
     "nyc": "^14.0.0",
     "objection": "^1.4.0",
-    "pg": "^7.6.1",
+    "pg": "^8.4.0",
     "sqlite3": "^4.0.4",
     "uuidv4": "^2.0.0",
     "validator": "^10.9.0",
-    "snyk": "^1.278.2"
+    "snyk": "^1.685.0"
   },
   "devDependencies": {
     "babel-watch": "https://github.com/monathur/babel-watch.git",

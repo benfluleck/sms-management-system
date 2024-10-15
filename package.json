@@ -40,7 +40,7 @@
     "dotenv": "^6.1.0",
     "eslint": "^6.0.0",
     "express": "^4.17.3",
-    "express-session": "^1.15.6",
+    "express-session": "^1.18.1",
     "faker": "^4.1.0",
     "knex": "^0.20.1",
     "nyc": "^14.0.0",
